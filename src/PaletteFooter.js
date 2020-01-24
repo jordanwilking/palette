@@ -6,6 +6,7 @@ const FooterContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  position: relative;
   width: 100%;
   height: 2rem;
 `
@@ -16,9 +17,13 @@ class PaletteFooter extends Component {
   }
 
   render() {
+    const { name, emoji } = this.props
+
     return (
       <FooterContainer>
-        <Typography style={{ width: '7rem' }}>Test Footer</Typography>
+        <Typography style={{ paddingRight: '.5rem' }}>
+          {name} {emoji}
+        </Typography>
       </FooterContainer>
     )
   }
