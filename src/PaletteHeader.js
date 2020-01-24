@@ -9,6 +9,7 @@ const HeaderContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
   width: 100%;
   height: 3rem;
 `
@@ -16,7 +17,6 @@ const SiteName = styled.div`
   display: flex;
   background-color: lightgrey;
   align-items: center;
-  border: 2px solid green;
   height: 100%;
   padding: 0 1rem;
   font-weight: 450;
@@ -29,7 +29,6 @@ const HeaderTools = styled.div`
   align-items: center;
   height: 100%;
   width: 100%;
-  border: 2px solid blue;
 `
 
 const ShadeLevel = styled.div`
@@ -37,7 +36,6 @@ const ShadeLevel = styled.div`
   flex-direction: row;
   align-items: center;
   text-align: center;
-  border: 2px solid orange;
   width: 40%;
 `
 
