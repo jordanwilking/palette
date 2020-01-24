@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# [Project Name]
+
+- Created as part of The Modern React Bootcamp Udemy course by Colt Steel: https://www.udemy.com/course/modern-react-bootcamp/
 
 ## Available Scripts
 
