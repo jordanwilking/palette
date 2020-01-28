@@ -1,26 +1,111 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import {
-  Grid,
-  Typography,
-  Button,
-  createMuiTheme,
-  MuiThemeProvider
-} from '@material-ui/core'
-import purple from '@material-ui/core/colors/purple'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-const buttonTheme = createMuiTheme({
-  palette: {
-    primary: purple
-  }
-})
-
-const Box = styled(Grid)`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  height: 12vw;
+const Box = styled.div`
+  display: inline-block;
+  position: relative;
+  margin: 0 auto;
+  width: 20%;
+  height: 25%;
   background-color: ${props => props.color};
+  cursor: pointer;
+  text-transform: uppercase;
+  margin-bottom: -4px;
+`
+
+const CopyOverlay = styled.div`
+  opacity: 0;
+  background: ${props => props.color};
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s ease-in-out;
+  transform: scale(0.1);
+
+  &.show {
+    opacity: 1;
+    transform: scale(50);
+    z-index: 10;
+    position: absolute;
+  }
+`
+
+const CopyMessage = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  font-size: 4rem;
+  transform: scale(0.1);
+  opacity: 0;
+  z-index: 0;
+  color: white;
+
+  &.show {
+    opacity: 1;
+    transform: scale(1);
+    z-index: 10;
+    transition: all 0.4s ease-in-out;
+    transition-delay: 0.3s;
+  }
+`
+
+const CopiedText = styled.h1`
+  font-weight: 400;
+  text-shadow: 1px 2px black;
+  background: rgba(255, 255, 255, 0.2);
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0;
+  padding: 1rem;
+`
+
+const ColorText = styled.p`
+  font-size: 2rem;
+  font-weight: 100;
+`
+
+const BoxContent = styled.div`
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+  color: black;
+  letter-spacing: 1px;
+  font-size: 12px;
+  cursor: pointer;
+`
+
+const CopyButton = styled.button`
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -15px;
+  text-align: center;
+  outline: none;
+  background: rgba(255, 255, 255, 0.3);
+  font-size: 1rem;
+  line-height: 30px;
+  color: white;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+
+  ${Box}:hover & {
+    opacity: 1;
+    transition: 0.5s;
+  }
 `
 
 const Footer = styled.div`
@@ -30,51 +115,54 @@ const Footer = styled.div`
   justify-content: space-between;
 `
 
-const ColorName = styled(Typography)`
-  text-align: left;
-  width: 90%;
-  padding-left: 0.5rem;
-`
-
-const MoreButton = styled(Button)`
-  color: white;
-  background-color: white;
-  width: 10%;
-  font-weight: 700;
-`
-
-const ButtonDiv = styled.div`
-  width: 20%;
+const MoreButton = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
-  display: none;
-  align-self: center;
-
-  ${Box}:hover & {
-    display: inline-block;
-  }
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border: none;
+  color: white;
+  width: 60px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
 `
 
 class ColorBox extends Component {
+  constructor(props) {
+    super(props)
+    this.state = { copied: false }
+    this.changeCopyState = this.changeCopyState.bind(this)
+    this.getCopyClasses = this.getCopyClasses.bind(this)
+  }
+
+  changeCopyState() {
+    this.setState({ copied: true }, () => {
+      setTimeout(() => this.setState({ copied: false }), 1500)
+    })
+  }
+
+  getCopyClasses() {
+    return this.state.copied ? 'show' : ''
+  }
+
   render() {
     const { color, colorName } = this.props
 
     return (
-      <MuiThemeProvider theme={buttonTheme}>
-        <Box item xs={12} sm={6} md={3} lg={1.5} color={color}>
-          <ButtonDiv>
-            <Button color='primary'>Copy</Button>
-          </ButtonDiv>
-          <Footer>
-            <ColorName>{colorName}</ColorName>
-            <MoreButton
-              style={{ backgroundColor: 'rgba(255,255,255,0.6)' }}
-              color='primary'
-            >
-              More
-            </MoreButton>
-          </Footer>
+      <CopyToClipboard text={color} onCopy={this.changeCopyState}>
+        <Box color={color}>
+          <CopyOverlay className={this.getCopyClasses()} color={color} />
+          <CopyMessage className={this.getCopyClasses()}>
+            <CopiedText>Copied!</CopiedText>
+            <ColorText>{color}</ColorText>
+          </CopyMessage>
+          <BoxContent>{colorName}</BoxContent>
+          <CopyButton>Copy</CopyButton>
+          <MoreButton>More</MoreButton>
         </Box>
-      </MuiThemeProvider>
+      </CopyToClipboard>
     )
   }
 }

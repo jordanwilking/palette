@@ -3,13 +3,15 @@ import styled from 'styled-components'
 import PaletteHeader from './PaletteHeader'
 import PaletteFooter from './PaletteFooter'
 import ColorBox from './ColorBox'
-import { Grid } from '@material-ui/core'
-import seedColors from './seedColors'
+import { palette } from '@material-ui/system'
 
-const PaletteContainer = styled(Grid)`
-  display: flex;
-  flex-flow: row wrap;
-  height: auto;
+const PaletteContainer = styled.div`
+  height: 100vh;
+`
+
+const ColorBoxContainer = styled.div`
+  height: 90%;
+  z-index: 1;
 `
 
 class Palette extends Component {
@@ -21,33 +23,33 @@ class Palette extends Component {
     this.changeShade = this.changeShade.bind(this)
   }
 
-  changeShade(newValue) {
-    this.setState({ shadeLevel: newValue })
+  changeShade(e, newShade) {
+    this.setState({ shade: newShade })
   }
 
   render() {
+    const { palette } = this.props
     const { shade } = this.state
-    const testPalette = seedColors[2]
 
     return (
-      <>
+      <PaletteContainer>
         <PaletteHeader shade={shade} changeShade={this.changeShade} />
-        <PaletteContainer container>
-          {testPalette.colors.map(entry => {
+        <ColorBoxContainer>
+          {palette.colors[shade].map(entry => {
             return (
               <ColorBox
-                key={entry.color}
-                color={entry.color}
-                colorName={`${entry.name} ${shade}`}
+                key={entry.id}
+                color={entry.hex}
+                colorName={`${entry.name}`}
               />
             )
           })}
-        </PaletteContainer>
-        <PaletteFooter
+        </ColorBoxContainer>
+        {/* <PaletteFooter
           name={testPalette.paletteName}
           emoji={testPalette.emoji}
-        />
-      </>
+        /> */}
+      </PaletteContainer>
     )
   }
 }

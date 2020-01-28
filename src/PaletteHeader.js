@@ -11,12 +11,14 @@ const HeaderContainer = styled.div`
   align-items: center;
   position: relative;
   width: 100%;
-  height: 3rem;
+  height: 6vh;
 `
-const SiteName = styled.div`
+const Logo = styled.div`
   display: flex;
-  background-color: lightgrey;
+  background-color: #eceff1;
   align-items: center;
+  font-family: Roboto;
+  font-size: 22px;
   height: 100%;
   padding: 0 1rem;
   font-weight: 450;
@@ -27,6 +29,7 @@ const HeaderTools = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin: 0 0.5rem;
   height: 100%;
   width: 100%;
 `
@@ -51,16 +54,9 @@ class PaletteHeader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      sliderValue: this.props.shade,
       format: colorFormats[0]
     }
-    this.onSliderChange = this.onSliderChange.bind(this)
     this.changeFormat = this.changeFormat.bind(this)
-  }
-
-  onSliderChange(e, newValue) {
-    this.setState({ sliderValue: newValue })
-    this.props.changeShade(newValue)
   }
 
   changeFormat(e) {
@@ -68,23 +64,22 @@ class PaletteHeader extends Component {
   }
 
   render() {
-    const { sliderValue, format } = this.state
+    const { format } = this.state
+    const { shade } = this.props
 
     return (
       <HeaderContainer>
-        <SiteName>{SITE_NAME}</SiteName>
+        <Logo>{SITE_NAME}</Logo>
         <HeaderTools>
           <ShadeLevel>
-            <Typography style={{ width: '7rem' }}>
-              Level: {sliderValue}
+            <Typography style={{ width: '7rem', minWidth: '5rem' }}>
+              Level: {shade}
             </Typography>
             <Slider
-              onChange={this.onSliderChange}
-              // defaultValue={sliderValue}
-              value={sliderValue}
+              onChange={this.props.changeShade}
+              value={shade}
               step={100}
-              marks
-              min={0}
+              min={100}
               max={900}
             />
           </ShadeLevel>
