@@ -11,7 +11,6 @@ const Box = styled.div`
   background-color: ${props => props.color};
   cursor: pointer;
   text-transform: uppercase;
-  margin-bottom: -3.5px;
 `
 
 const CopyOverlay = styled.div`
@@ -79,7 +78,6 @@ const BoxContent = styled.div`
   color: black;
   letter-spacing: 1px;
   font-size: 12px;
-  cursor: pointer;
 `
 
 const CopyButton = styled.button`
@@ -125,7 +123,6 @@ const MoreButton = styled.div`
   height: 30px;
   text-align: center;
   line-height: 30px;
-  cursor: pointer;
 `
 
 class ColorBox extends Component {

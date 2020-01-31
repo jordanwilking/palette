@@ -10,6 +10,8 @@ const PaletteContainer = styled.div`
 `
 
 const ColorBoxContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
   height: 90%;
   z-index: 1;
 `
@@ -33,7 +35,7 @@ class Palette extends Component {
 
     return (
       <PaletteContainer>
-        {/* <PaletteHeader shade={shade} changeShade={this.changeShade} /> */}
+        <PaletteHeader shade={shade} changeShade={this.changeShade} />
         <ColorBoxContainer>
           {palette.colors[shade].map(entry => {
             return (
