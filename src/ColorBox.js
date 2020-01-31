@@ -11,15 +11,15 @@ const Box = styled.div`
   background-color: ${props => props.color};
   cursor: pointer;
   text-transform: uppercase;
-  margin-bottom: -4px;
+  margin-bottom: -3.5px;
 `
 
 const CopyOverlay = styled.div`
   opacity: 0;
   background: ${props => props.color};
   z-index: 0;
-  width: 100%;
   height: 100%;
+  width: 100%;
   transition: transform 0.6s ease-in-out;
   transform: scale(0.1);
 
@@ -50,7 +50,7 @@ const CopyMessage = styled.div`
   &.show {
     opacity: 1;
     transform: scale(1);
-    z-index: 10;
+    z-index: 25;
     transition: all 0.4s ease-in-out;
     transition-delay: 0.3s;
   }
@@ -73,7 +73,6 @@ const ColorText = styled.p`
 
 const BoxContent = styled.div`
   position: absolute;
-  width: 100%;
   left: 0;
   bottom: 0;
   padding: 10px;

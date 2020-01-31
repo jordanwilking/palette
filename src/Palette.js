@@ -33,7 +33,7 @@ class Palette extends Component {
 
     return (
       <PaletteContainer>
-        <PaletteHeader shade={shade} changeShade={this.changeShade} />
+        {/* <PaletteHeader shade={shade} changeShade={this.changeShade} /> */}
         <ColorBoxContainer>
           {palette.colors[shade].map(entry => {
             return (
