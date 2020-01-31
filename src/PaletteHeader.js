@@ -45,27 +45,28 @@ const ShadeLevel = styled.div`
 const SITE_NAME = 'reactcolorpicker'
 
 const colorFormats = [
-  'HEX - #ffffff',
-  'RGB - rgb(255,255,255)',
-  'RGBA - rgba(255,255,255, 1.0)'
+  { value: 'hex', display: 'HEX - #ffffff' },
+  { value: 'rgb', display: 'RGB - rgb(255,255,255)' },
+  { value: 'rgba', display: 'RGBA - rgba(255,255,255, 1.0)' }
 ]
 
 class PaletteHeader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      format: colorFormats[0]
+      format: colorFormats[0].value || 'hex'
     }
     this.changeFormat = this.changeFormat.bind(this)
   }
 
   changeFormat(e) {
     this.setState({ format: e.target.value })
+    this.props.changeFormat(e.target.value)
   }
 
   render() {
-    const { format } = this.state
     const { shade } = this.props
+    const { format } = this.state
 
     return (
       <HeaderContainer>
@@ -91,8 +92,8 @@ class PaletteHeader extends Component {
           >
             {colorFormats.map(colorFormat => {
               return (
-                <MenuItem key={colorFormat} value={colorFormat}>
-                  {colorFormat}
+                <MenuItem key={colorFormat} value={colorFormat.value}>
+                  {colorFormat.display}
                 </MenuItem>
               )
             })}

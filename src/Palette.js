@@ -20,29 +20,39 @@ class Palette extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      shade: 500
+      shade: 500,
+      format: 'hex'
     }
     this.changeShade = this.changeShade.bind(this)
+    this.changeFormat = this.changeFormat.bind(this)
   }
 
   changeShade(e, newShade) {
     this.setState({ shade: newShade })
   }
 
+  changeFormat(newFormat) {
+    this.setState({ format: newFormat })
+  }
+
   render() {
     const { palette } = this.props
-    const { shade } = this.state
+    const { shade, format } = this.state
 
     return (
       <PaletteContainer>
-        <PaletteHeader shade={shade} changeShade={this.changeShade} />
+        <PaletteHeader
+          shade={shade}
+          changeShade={this.changeShade}
+          changeFormat={this.changeFormat}
+        />
         <ColorBoxContainer>
-          {palette.colors[shade].map(entry => {
+          {palette.colors[shade].map(color => {
             return (
               <ColorBox
-                key={entry.id}
-                color={entry.hex}
-                colorName={`${entry.name}`}
+                key={color.id}
+                color={color[format]}
+                colorName={`${color.name}`}
               />
             )
           })}
