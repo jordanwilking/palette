@@ -9,6 +9,7 @@ const PaletteContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
+  overflow: hidden;
 `
 
 const ColorBoxContainer = styled.div`
@@ -41,7 +42,7 @@ class Palette extends Component {
   }
 
   render() {
-    const { palette } = this.props
+    const { colors, paletteName, emoji, id } = this.props.palette
     const { shade, format } = this.state
 
     return (
@@ -53,17 +54,20 @@ class Palette extends Component {
           changeFormat={this.changeFormat}
         />
         <ColorBoxContainer>
-          {palette.colors[shade].map(color => {
+          {colors[shade].map(color => {
             return (
               <ColorBox
+                showMore
                 key={color.id}
+                id={color.id}
+                paletteId={id}
                 color={color[format]}
                 colorName={`${color.name}`}
               />
             )
           })}
         </ColorBoxContainer>
-        <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
+        <PaletteFooter name={paletteName} emoji={emoji} />
       </PaletteContainer>
     )
   }

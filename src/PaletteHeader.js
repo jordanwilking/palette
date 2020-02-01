@@ -119,7 +119,7 @@ class PaletteHeader extends Component {
         <SimpleSnackbar
           open={snackbarOpen}
           close={this.handleSnackbarClose}
-          message='test'
+          message='Format changed!'
         />
       </HeaderContainer>
     )

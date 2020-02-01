@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { Link } from 'react-router-dom'
 
 const Box = styled.div`
   display: inline-block;
@@ -117,7 +118,6 @@ const MoreButton = styled.div`
   height: 30px;
   text-align: center;
   line-height: 30px;
-  z-index: 1;
 `
 
 class ColorBox extends Component {
@@ -141,11 +141,10 @@ class ColorBox extends Component {
 
   onClickMore(e) {
     e.stopPropagation()
-    alert('More')
   }
 
   render() {
-    const { color, colorName } = this.props
+    const { color, colorName, paletteId, id, showMore } = this.props
 
     return (
       <CopyToClipboard text={color} onCopy={this.changeCopyState}>
@@ -157,7 +156,11 @@ class ColorBox extends Component {
           </CopyMessage>
           <BoxContent>{colorName}</BoxContent>
           <CopyButton>Copy</CopyButton>
-          <MoreButton onClick={this.onClickMore}>More</MoreButton>
+          {showMore && (
+            <Link to={`/palette/${paletteId}/${id}`} onClick={this.onClickMore}>
+              <MoreButton>More</MoreButton>
+            </Link>
+          )}
         </Box>
       </CopyToClipboard>
     )

@@ -25,19 +25,25 @@ class App extends Component {
           exact
           path='/palette/:id'
           render={routeProps => (
-            <div style={{ overflow: 'hidden' }}>
-              <Palette
-                palette={generatePalette(
-                  this.findPalette(routeProps.match.params.id)
-                )}
-              />
-            </div>
+            <Palette
+              palette={generatePalette(
+                this.findPalette(routeProps.match.params.id)
+              )}
+            />
           )}
         />
         <Route
           exact
           path='/palette/:paletteId/:colorId'
-          render={routeProps => <SingleColorPalette {...routeProps} />}
+          render={routeProps => (
+            <SingleColorPalette
+              colorId={routeProps.match.params.colorId}
+              palette={generatePalette(
+                this.findPalette(routeProps.match.params.paletteId)
+              )}
+              {...routeProps}
+            />
+          )}
         />
         <Redirect from='/' to='/' />
       </Switch>
