@@ -4,7 +4,7 @@ import Slider from '@material-ui/core/Slider'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import { MenuItem, Snackbar, IconButton } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close'
+import { Link } from 'react-router-dom'
 import { colorFormats } from './colorHelpers'
 import SimpleSnackbar from './SimpleSnackbar'
 
@@ -77,7 +77,11 @@ class PaletteHeader extends Component {
 
     return (
       <HeaderContainer>
-        <Logo>{SITE_NAME}</Logo>
+        <Logo>
+          <Link to='/' style={{ color: 'black', textDecoration: 'none' }}>
+            {SITE_NAME}
+          </Link>
+        </Logo>
         <HeaderTools>
           <ShadeLevel>
             <Typography style={{ width: '7rem', minWidth: '5rem' }}>

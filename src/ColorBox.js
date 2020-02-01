@@ -5,7 +5,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 const Box = styled.div`
   display: inline-block;
   position: relative;
-  margin: 0 auto;
   width: 20%;
   height: 25%;
   background-color: ${props => props.color};

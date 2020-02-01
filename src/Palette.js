@@ -3,7 +3,6 @@ import styled from 'styled-components'
 import PaletteHeader from './PaletteHeader'
 import PaletteFooter from './PaletteFooter'
 import ColorBox from './ColorBox'
-import { palette } from '@material-ui/system'
 
 const PaletteContainer = styled.div`
   height: 100vh;
@@ -14,6 +13,9 @@ const PaletteContainer = styled.div`
 const ColorBoxContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
   height: 90%;
   z-index: 1;
 `
