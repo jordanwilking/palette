@@ -7,6 +7,8 @@ import { palette } from '@material-ui/system'
 
 const PaletteContainer = styled.div`
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 `
 
 const ColorBoxContainer = styled.div`

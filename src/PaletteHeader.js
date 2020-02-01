@@ -106,21 +106,6 @@ class PaletteHeader extends Component {
             })}
           </TextField>
         </HeaderTools>
-        {/* TODO factor out to simpler snackbar */}
-        {/* <Snackbar
-          open={snackbarOpen}
-          autoHideDuration={3000}
-          message='Format changed!'
-          onClose={this.handleSnackbarClose}
-          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-          action={
-            <>
-              <IconButton color='inherit' onClick={this.handleSnackbarClose}>
-                <CloseIcon />
-              </IconButton>
-            </>
-          }
-        /> */}
         <SimpleSnackbar
           open={snackbarOpen}
           close={this.handleSnackbarClose}
