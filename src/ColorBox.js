@@ -117,6 +117,7 @@ const MoreButton = styled.div`
   height: 30px;
   text-align: center;
   line-height: 30px;
+  z-index: 1;
 `
 
 class ColorBox extends Component {
@@ -125,6 +126,7 @@ class ColorBox extends Component {
     this.state = { copied: false, snackbarOpen: false }
     this.changeCopyState = this.changeCopyState.bind(this)
     this.getCopyClasses = this.getCopyClasses.bind(this)
+    this.onClickMore = this.onClickMore.bind(this)
   }
 
   changeCopyState() {
@@ -137,24 +139,27 @@ class ColorBox extends Component {
     return this.state.copied ? 'show' : ''
   }
 
+  onClickMore(e) {
+    e.stopPropagation()
+    alert('More')
+  }
+
   render() {
     const { color, colorName } = this.props
 
     return (
-      <>
-        <CopyToClipboard text={color} onCopy={this.changeCopyState}>
-          <Box color={color}>
-            <CopyOverlay className={this.getCopyClasses()} color={color} />
-            <CopyMessage className={this.getCopyClasses()}>
-              <CopiedText>Copied!</CopiedText>
-              <ColorText>{color}</ColorText>
-            </CopyMessage>
-            <BoxContent>{colorName}</BoxContent>
-            <CopyButton>Copy</CopyButton>
-            <MoreButton>More</MoreButton>
-          </Box>
-        </CopyToClipboard>
-      </>
+      <CopyToClipboard text={color} onCopy={this.changeCopyState}>
+        <Box color={color}>
+          <CopyOverlay className={this.getCopyClasses()} color={color} />
+          <CopyMessage className={this.getCopyClasses()}>
+            <CopiedText>Copied!</CopiedText>
+            <ColorText>{color}</ColorText>
+          </CopyMessage>
+          <BoxContent>{colorName}</BoxContent>
+          <CopyButton>Copy</CopyButton>
+          <MoreButton onClick={this.onClickMore}>More</MoreButton>
+        </Box>
+      </CopyToClipboard>
     )
   }
 }

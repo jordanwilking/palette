@@ -73,7 +73,7 @@ class PaletteHeader extends Component {
   }
 
   render() {
-    const { shade } = this.props
+    const { shade, changeShade, showSlider } = this.props
     const { format, snackbarOpen } = this.state
 
     return (
@@ -84,18 +84,23 @@ class PaletteHeader extends Component {
           </Link>
         </Logo>
         <HeaderTools>
-          <ShadeLevel>
-            <Typography style={{ width: '7rem', minWidth: '5rem' }}>
-              Level: {shade}
-            </Typography>
-            <Slider
-              onChange={this.props.changeShade}
-              value={shade}
-              step={100}
-              min={100}
-              max={900}
-            />
-          </ShadeLevel>
+          {/* TODO: div is here to keep the justify-content working */}
+          {showSlider ? (
+            <ShadeLevel>
+              <Typography style={{ width: '7rem', minWidth: '5rem' }}>
+                Level: {shade}
+              </Typography>
+              <Slider
+                onChange={changeShade}
+                value={shade}
+                step={100}
+                min={100}
+                max={900}
+              />
+            </ShadeLevel>
+          ) : (
+            <div />
+          )}
           <TextField
             select
             onChange={this.changeFormat}

@@ -47,6 +47,7 @@ class Palette extends Component {
     return (
       <PaletteContainer>
         <PaletteHeader
+          showSlider
           shade={shade}
           changeShade={this.changeShade}
           changeFormat={this.changeFormat}
