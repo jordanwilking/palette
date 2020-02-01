@@ -52,4 +52,10 @@ function generateScale(hexColor, numberOfColors) {
     .colors(numberOfColors)
 }
 
-export { generatePalette }
+const colorFormats = [
+  { value: 'hex', display: 'HEX - #ffffff' },
+  { value: 'rgb', display: 'RGB - rgb(255,255,255)' },
+  { value: 'rgba', display: 'RGBA - rgba(255,255,255, 1.0)' }
+]
+
+export { generatePalette, colorFormats }

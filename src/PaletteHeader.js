@@ -3,7 +3,9 @@ import styled from 'styled-components'
 import Slider from '@material-ui/core/Slider'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import { MenuItem } from '@material-ui/core'
+import { MenuItem, Snackbar, IconButton } from '@material-ui/core'
+import CloseIcon from '@material-ui/icons/Close'
+import { colorFormats } from './colorHelpers'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -44,29 +46,33 @@ const ShadeLevel = styled.div`
 
 const SITE_NAME = 'reactcolorpicker'
 
-const colorFormats = [
-  { value: 'hex', display: 'HEX - #ffffff' },
-  { value: 'rgb', display: 'RGB - rgb(255,255,255)' },
-  { value: 'rgba', display: 'RGBA - rgba(255,255,255, 1.0)' }
-]
-
 class PaletteHeader extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      format: colorFormats[0].value || 'hex'
+      format: colorFormats[0].value || 'hex',
+      snackbarOpen: false
     }
     this.changeFormat = this.changeFormat.bind(this)
+    this.handleSnackbarClose = this.handleSnackbarClose.bind(this)
   }
 
   changeFormat(e) {
-    this.setState({ format: e.target.value })
+    this.setState({ format: e.target.value, snackbarOpen: true })
     this.props.changeFormat(e.target.value)
+  }
+
+  handleSnackbarClose(event, reason) {
+    if (reason === 'clickaway') {
+      return
+    }
+
+    this.setState({ snackbarOpen: false })
   }
 
   render() {
     const { shade } = this.props
-    const { format } = this.state
+    const { format, snackbarOpen } = this.state
 
     return (
       <HeaderContainer>
@@ -92,13 +98,28 @@ class PaletteHeader extends Component {
           >
             {colorFormats.map(colorFormat => {
               return (
-                <MenuItem key={colorFormat} value={colorFormat.value}>
+                <MenuItem key={colorFormat.value} value={colorFormat.value}>
                   {colorFormat.display}
                 </MenuItem>
               )
             })}
           </TextField>
         </HeaderTools>
+        {/* TODO factor out to simpler snackbar */}
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={3000}
+          message='Format changed!'
+          onClose={this.handleSnackbarClose}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          action={
+            <>
+              <IconButton color='inherit' onClick={this.handleSnackbarClose}>
+                <CloseIcon />
+              </IconButton>
+            </>
+          }
+        />
       </HeaderContainer>
     )
   }

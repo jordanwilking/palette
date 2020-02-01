@@ -57,10 +57,7 @@ class Palette extends Component {
             )
           })}
         </ColorBoxContainer>
-        {/* <PaletteFooter
-          name={testPalette.paletteName}
-          emoji={testPalette.emoji}
-        /> */}
+        <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
       </PaletteContainer>
     )
   }

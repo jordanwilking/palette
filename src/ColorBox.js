@@ -68,6 +68,8 @@ const CopiedText = styled.h1`
 const ColorText = styled.p`
   font-size: 2rem;
   font-weight: 100;
+  text-transform: none;
+  color: rgba(255, 255, 255, 0.2);
 `
 
 const BoxContent = styled.div`
@@ -128,7 +130,7 @@ const MoreButton = styled.div`
 class ColorBox extends Component {
   constructor(props) {
     super(props)
-    this.state = { copied: false }
+    this.state = { copied: false, snackbarOpen: false }
     this.changeCopyState = this.changeCopyState.bind(this)
     this.getCopyClasses = this.getCopyClasses.bind(this)
   }
@@ -147,18 +149,20 @@ class ColorBox extends Component {
     const { color, colorName } = this.props
 
     return (
-      <CopyToClipboard text={color} onCopy={this.changeCopyState}>
-        <Box color={color}>
-          <CopyOverlay className={this.getCopyClasses()} color={color} />
-          <CopyMessage className={this.getCopyClasses()}>
-            <CopiedText>Copied!</CopiedText>
-            <ColorText>{color}</ColorText>
-          </CopyMessage>
-          <BoxContent>{colorName}</BoxContent>
-          <CopyButton>Copy</CopyButton>
-          <MoreButton>More</MoreButton>
-        </Box>
-      </CopyToClipboard>
+      <>
+        <CopyToClipboard text={color} onCopy={this.changeCopyState}>
+          <Box color={color}>
+            <CopyOverlay className={this.getCopyClasses()} color={color} />
+            <CopyMessage className={this.getCopyClasses()}>
+              <CopiedText>Copied!</CopiedText>
+              <ColorText>{color}</ColorText>
+            </CopyMessage>
+            <BoxContent>{colorName}</BoxContent>
+            <CopyButton>Copy</CopyButton>
+            <MoreButton>More</MoreButton>
+          </Box>
+        </CopyToClipboard>
+      </>
     )
   }
 }
