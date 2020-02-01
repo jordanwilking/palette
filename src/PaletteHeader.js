@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography'
 import { MenuItem, Snackbar, IconButton } from '@material-ui/core'
 import CloseIcon from '@material-ui/icons/Close'
 import { colorFormats } from './colorHelpers'
+import SimpleSnackbar from './SimpleSnackbar'
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -106,7 +107,7 @@ class PaletteHeader extends Component {
           </TextField>
         </HeaderTools>
         {/* TODO factor out to simpler snackbar */}
-        <Snackbar
+        {/* <Snackbar
           open={snackbarOpen}
           autoHideDuration={3000}
           message='Format changed!'
@@ -119,6 +120,11 @@ class PaletteHeader extends Component {
               </IconButton>
             </>
           }
+        /> */}
+        <SimpleSnackbar
+          open={snackbarOpen}
+          close={this.handleSnackbarClose}
+          message='test'
         />
       </HeaderContainer>
     )
