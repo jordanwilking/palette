@@ -25,8 +25,9 @@ const ColorBoxContainer = styled.div`
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props)
+    this.state = { format: 'hex' }
     this.gatherShades = this.gatherShades.bind(this)
-    this._shades = this.gatherShades()
+    this.changeFormat = this.changeFormat.bind(this)
   }
 
   gatherShades() {
@@ -43,20 +44,25 @@ class SingleColorPalette extends Component {
     return shades.slice(1)
   }
 
+  changeFormat(newFormat) {
+    this.setState({ format: newFormat })
+  }
+
   render() {
     const { palette } = this.props
+    const { format } = this.state
     const shades = this.gatherShades()
 
     return (
       <PaletteContainer>
-        <PaletteHeader />
+        <PaletteHeader changeFormat={this.changeFormat} />
         <ColorBoxContainer>
           {shades.map(color => {
             return (
               <ColorBox
                 key={color.name}
                 colorName={color.name}
-                color={color.hex}
+                color={color[format]}
               />
             )
           })}
