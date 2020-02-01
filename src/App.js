@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import styled from 'styled-components'
 import Palette from './Palette'
 import PaletteList from './PaletteList'
 import seedColors from './seedColors'
@@ -17,17 +16,21 @@ class App extends Component {
         <Route
           exact
           path='/'
-          render={() => <PaletteList palettes={seedColors} />}
+          render={routeProps => (
+            <PaletteList palettes={seedColors} {...routeProps} />
+          )}
         />
         <Route
           exact
           path='/palette/:id'
           render={routeProps => (
-            <Palette
-              palette={generatePalette(
-                this.findPalette(routeProps.match.params.id)
-              )}
-            />
+            <div style={{ overflow: 'hidden' }}>
+              <Palette
+                palette={generatePalette(
+                  this.findPalette(routeProps.match.params.id)
+                )}
+              />
+            </div>
           )}
         />
         <Redirect from='/' to='/' />

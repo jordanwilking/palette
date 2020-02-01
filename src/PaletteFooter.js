@@ -8,13 +8,10 @@ const FooterContainer = styled.div`
   justify-content: flex-end;
   width: 100%;
   height: 2rem;
+  background-color: white;
 `
 
 class PaletteFooter extends Component {
-  constructor(props) {
-    super(props)
-  }
-
   render() {
     const { name, emoji } = this.props
 

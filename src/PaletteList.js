@@ -7,6 +7,7 @@ const Page = styled.div`
   display: flex;
   justify-content: center;
   height: 100vh;
+  z-index: 1;
 `
 
 const PalettesPageContainer = styled.div`
@@ -44,24 +45,33 @@ const PalettesContainer = styled.div`
   width: 100%;
 `
 
-export default class PaletteList extends Component {
+class PaletteList extends Component {
+  constructor(props) {
+    super(props)
+    this.goToPalette = this.goToPalette.bind(this)
+  }
+
+  goToPalette(id) {
+    this.props.history.push(`palette/${id}`)
+  }
+
   render() {
     const { palettes } = this.props
+
     return (
       <Page>
         <PalettesPageContainer>
           <PalettesHeader>
             <AppName>React Colors</AppName>
-            <CreateLink>Create Palette</CreateLink>
+            <CreateLink to='/'>Create Palette</CreateLink>
           </PalettesHeader>
           <PalettesContainer>
-            {/* {palettes.map(palette => (
-          <p>
-            <Link to={`/palette/${palette.id}`}>{palette.paletteName}</Link>
-          </p>
-        ))} */}
             {palettes.map(palette => (
-              <MiniPalette palette={palette} />
+              <MiniPalette
+                key={palette.id}
+                palette={palette}
+                onClick={this.goToPalette}
+              />
             ))}
           </PalettesContainer>
         </PalettesPageContainer>
@@ -69,3 +79,5 @@ export default class PaletteList extends Component {
     )
   }
 }
+
+export default PaletteList

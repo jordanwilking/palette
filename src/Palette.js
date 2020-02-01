@@ -8,6 +8,7 @@ const PaletteContainer = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: white;
 `
 
 const ColorBoxContainer = styled.div`

@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Slider from '@material-ui/core/Slider'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
-import { MenuItem, Snackbar, IconButton } from '@material-ui/core'
+import { MenuItem } from '@material-ui/core'
 import { Link } from 'react-router-dom'
 import { colorFormats } from './colorHelpers'
 import SimpleSnackbar from './SimpleSnackbar'
@@ -15,6 +15,7 @@ const HeaderContainer = styled.div`
   position: relative;
   width: 100%;
   height: 6vh;
+  background-color: white;
 `
 const Logo = styled.div`
   display: flex;

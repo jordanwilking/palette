@@ -106,13 +106,6 @@ const CopyButton = styled.button`
   }
 `
 
-const Footer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`
-
 const MoreButton = styled.div`
   background-color: rgba(255, 255, 255, 0.5);
   position: absolute;

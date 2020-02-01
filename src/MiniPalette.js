@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import PaletteFooter from './PaletteFooter'
 
 const Box = styled.div`
   width: 30%;
@@ -8,6 +7,7 @@ const Box = styled.div`
   background-color: white;
   margin-bottom: 2rem;
   border-radius: 5px;
+  cursor: pointer;
 `
 
 const PalettePreview = styled.div`
@@ -39,16 +39,25 @@ const PaletteName = styled.div`
   font-weight: 700;
 `
 
-export default class MiniPalette extends Component {
+class MiniPalette extends Component {
+  constructor(props) {
+    super(props)
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick() {
+    this.props.onClick(this.props.palette.id)
+  }
+
   render() {
     const { palette } = this.props
 
     return (
       <>
-        <Box>
+        <Box onClick={this.handleClick}>
           <PalettePreview>
             {palette.colors.map(color => (
-              <MiniColorBox color={color.color} />
+              <MiniColorBox key={color.name} color={color.color} />
             ))}
           </PalettePreview>
           <MiniPaletteFooter>
@@ -60,3 +69,5 @@ export default class MiniPalette extends Component {
     )
   }
 }
+
+export default MiniPalette
