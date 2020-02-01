@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PaletteHeader from './PaletteHeader'
 import PaletteFooter from './PaletteFooter'
@@ -22,12 +23,25 @@ const ColorBoxContainer = styled.div`
   z-index: 1;
 `
 
+const BackBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20%;
+  height: 25%;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+`
+
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props)
     this.state = { format: 'hex' }
     this.gatherShades = this.gatherShades.bind(this)
     this.changeFormat = this.changeFormat.bind(this)
+    this.handleBackButtonClick = this.handleBackButtonClick.bind(this)
   }
 
   gatherShades() {
@@ -48,6 +62,10 @@ class SingleColorPalette extends Component {
     this.setState({ format: newFormat })
   }
 
+  handleBackButtonClick() {
+    this.props.history.goBack()
+  }
+
   render() {
     const { palette } = this.props
     const { format } = this.state
@@ -66,6 +84,7 @@ class SingleColorPalette extends Component {
               />
             )
           })}
+          <BackBox onClick={this.handleBackButtonClick}>Go Back</BackBox>
         </ColorBoxContainer>
         <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
       </PaletteContainer>
@@ -73,4 +92,4 @@ class SingleColorPalette extends Component {
   }
 }
 
-export default SingleColorPalette
+export default withRouter(SingleColorPalette)
