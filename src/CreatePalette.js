@@ -1,153 +1,3 @@
-// import React, { Component } from 'react'
-// import styled from 'styled-components'
-// import Drawer from '@material-ui/core/Drawer'
-// import { Button, Divider, IconButton } from '@material-ui/core'
-// import seedColors from './seedColors'
-// import ColorBox from './ColorBox'
-// import QueueIcon from '@material-ui/icons/Queue'
-// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-
-// const CreatePaletteContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   width: 100%;
-//   height: 100vh;
-//   background-color: white;
-// `
-
-// const CreateHeader = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-//   justify-content: space-between;
-//   height: 3.5rem;
-//   padding: 0 1rem;
-// `
-
-// const CreateText = styled.div`
-//   font-weight: 600;
-//   margin-left: 1rem;
-// `
-
-// const HeaderLeft = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   align-items: center;
-// `
-
-// const HeaderActionsSection = styled.div`
-//   display: flex;
-//   justify-content: flex-end;
-//   width: 30%;
-// `
-
-// const Palettes = styled.div`
-//   display: flex;
-//   flex-flow: row wrap;
-//   height: 100%;
-// `
-
-// const PalettePickerContainer = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   align-content: center;
-//   justify-content: center;
-//   height: 50%;
-//   width: 100%;
-//   margin: 1rem;
-//   border: 2px solid red;
-// `
-
-// const PickerActions = styled.div`
-//   display: flex;
-//   flex-direction: row;
-// `
-
-// class CreatePalette extends Component {
-//   constructor(props) {
-//     super(props)
-//     this.state = { drawerOpen: false }
-//     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
-//     this.handleDrawerClose = this.handleDrawerClose.bind(this)
-//   }
-
-//   handleDrawerOpen() {
-//     this.setState({ drawerOpen: true })
-//   }
-
-//   handleDrawerClose() {
-//     this.setState({ drawerOpen: false })
-//   }
-
-//   render() {
-//     const test = seedColors[2]
-//     const { drawerOpen } = this.state
-
-//     return (
-//       <CreatePaletteContainer>
-// <CreateHeader>
-//   <HeaderLeft>
-//     <IconButton onClick={this.handleDrawerOpen}>
-//       <QueueIcon />
-//     </IconButton>
-//     <CreateText>Create A Palette</CreateText>
-//   </HeaderLeft>
-//   <HeaderActionsSection>
-//     <Button
-//       style={{ marginRight: '1rem' }}
-//       color='secondary'
-//       variant='contained'
-//     >
-//       Go Back
-//     </Button>
-//     <Button color='primary' variant='contained'>
-//       Save Palette
-//     </Button>
-//   </HeaderActionsSection>
-// </CreateHeader>
-//         <Divider />
-//         <Palettes>
-//           {test.colors.map(color => (
-//             <ColorBox color={color.color} colorName={color.name} />
-//           ))}
-//         </Palettes>
-//         <Drawer variant='permanent' open={drawerOpen}>
-//           <div>
-//             <IconButton onClick={this.handleDrawerClose}>
-//               <ChevronLeftIcon />
-//             </IconButton>
-//           </div>
-//           <Divider />
-//           <Divider />
-//         </Drawer>
-//         <Drawer variant='persistent' anchor='left' open={drawerOpen}>
-//           <div style={{ textAlign: 'right' }}>
-//             <IconButton onClick={this.handleDrawerClose}>
-//               <ChevronLeftIcon />
-//             </IconButton>
-//           </div>
-// <PalettePickerContainer>
-//   <>
-//     <div>Design Your Palette</div>
-//     <PickerActions>
-//       <Button variant='contained' color='secondary'>
-//         Clear Palette
-//       </Button>
-//       <Button variant='contained' color='primary'>
-//         Random Color
-//       </Button>
-//     </PickerActions>
-//   </>
-// </PalettePickerContainer>
-//         </Drawer>
-//       </CreatePaletteContainer>
-//     )
-//   }
-// }
-
-// export default CreatePalette
-
 import React, { Component } from 'react'
 import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles'
@@ -163,8 +13,8 @@ import styled from 'styled-components'
 import { Button, Typography } from '@material-ui/core'
 import { ChromePicker } from 'react-color'
 import seedColors from './seedColors'
-import ColorBox from './ColorBox'
 import DraggableColorBox from './DraggableColorBox'
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 
 const CreatePaletteContainer = styled.div`
   display: flex;
@@ -265,7 +115,6 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     height: 'calc(100vh - 64px)',
-    // padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
@@ -287,12 +136,28 @@ class CreatePalette extends Component {
     this.state = {
       open: false,
       currentColor: 'teal',
-      colors: ['purple', '#e15764']
+      newName: '',
+      colors: [
+        { color: 'purple', name: 'purple' },
+        { color: '#e15764', name: 'other' }
+      ]
     }
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
     this.handleDrawerClose = this.handleDrawerClose.bind(this)
     this.updateCurrentColor = this.updateCurrentColor.bind(this)
     this.addNewColor = this.addNewColor.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule('isColorNameUnique', value =>
+      this.state.colors.every(
+        ({ name }) => name.toLowerCase() !== value.toLowerCase()
+      )
+    )
+    ValidatorForm.addValidationRule('isColorUnique', value =>
+      this.state.colors.every(({ color }) => color !== this.state.currentColor)
+    )
   }
 
   handleDrawerOpen() {
@@ -308,12 +173,20 @@ class CreatePalette extends Component {
   }
 
   addNewColor() {
-    this.setState({ colors: [...this.state.colors, this.state.currentColor] })
+    const newColor = {
+      color: this.state.currentColor,
+      name: this.state.newName
+    }
+    this.setState({ colors: [...this.state.colors, newColor], newName: '' })
+  }
+
+  handleChange(e) {
+    this.setState({ newName: e.target.value })
   }
 
   render() {
     const { classes } = this.props
-    const { open, currentColor, colors } = this.state
+    const { open, currentColor, newName, colors } = this.state
 
     return (
       <div className={classes.root}>
@@ -380,14 +253,30 @@ class CreatePalette extends Component {
                 color={currentColor}
                 onChangeComplete={this.updateCurrentColor}
               />
-              <Button
-                variant='contained'
-                color='primary'
-                style={{ backgroundColor: currentColor }}
-                onClick={this.addNewColor}
-              >
-                Add Color
-              </Button>
+              <ValidatorForm onSubmit={this.addNewColor}>
+                <TextValidator
+                  value={newName}
+                  onChange={this.handleChange}
+                  validators={[
+                    'required',
+                    'isColorNameUnique',
+                    'isColorUnique'
+                  ]}
+                  errorMessages={[
+                    'This field is required',
+                    'Color name must be unique',
+                    'Color already used'
+                  ]}
+                />
+                <Button
+                  variant='contained'
+                  color='primary'
+                  type='submit'
+                  style={{ backgroundColor: currentColor }}
+                >
+                  Add Color
+                </Button>
+              </ValidatorForm>
             </>
           </PalettePickerContainer>
         </Drawer>
@@ -398,7 +287,7 @@ class CreatePalette extends Component {
         >
           <div className={classes.drawerHeader} />
           {colors.map(color => (
-            <DraggableColorBox color={color} />
+            <DraggableColorBox color={color.color} name={color.name} />
           ))}
         </main>
       </div>
