@@ -63,7 +63,7 @@ class PaletteList extends Component {
         <PalettesPageContainer>
           <PalettesHeader>
             <AppName>React Colors</AppName>
-            <CreateLink to='/'>Create Palette</CreateLink>
+            <CreateLink to='/palette/new'>Create Palette</CreateLink>
           </PalettesHeader>
           <PalettesContainer>
             {palettes.map(palette => (
