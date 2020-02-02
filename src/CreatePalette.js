@@ -12,19 +12,10 @@ import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button, Typography } from '@material-ui/core'
 import { ChromePicker } from 'react-color'
-import DraggableColorBox from './DraggableColorBox'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import seedColors from './seedColors'
 import DraggableColorList from './DraggableColorList'
-import { SortableContainer, SortableList, arrayMove } from 'react-sortable-hoc'
-
-const CreatePaletteContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  background-color: white;
-`
+import { arrayMove } from 'react-sortable-hoc'
 
 const CreateHeader = styled.div`
   display: flex;
@@ -127,6 +118,7 @@ const styles = theme => ({
 })
 
 class CreatePalette extends Component {
+  static defaultProps = { maxColors: 20 }
   constructor(props) {
     super(props)
     this.state = {
@@ -145,6 +137,8 @@ class CreatePalette extends Component {
     this.removeColor = this.removeColor.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.onSortEnd = this.onSortEnd.bind(this)
+    this.clearColors = this.clearColors.bind(this)
+    this.addRandomColor = this.addRandomColor.bind(this)
   }
 
   componentDidMount() {
@@ -212,6 +206,17 @@ class CreatePalette extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  clearColors() {
+    this.setState({ colors: [] })
+  }
+
+  addRandomColor() {
+    const allColors = this.props.palettes.map(palette => palette.colors).flat()
+    let rand = Math.floor(Math.random() * allColors.length)
+    const randomColor = allColors[rand]
+    this.setState({ colors: [...this.state.colors, randomColor] })
+  }
+
   onSortEnd({ oldIndex, newIndex }) {
     this.setState(({ colors }) => ({
       colors: arrayMove(colors, oldIndex, newIndex)
@@ -219,7 +224,7 @@ class CreatePalette extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, maxColors } = this.props
     const {
       open,
       currentColor,
@@ -227,6 +232,7 @@ class CreatePalette extends Component {
       newPaletteName,
       colors
     } = this.state
+    const paletteFull = colors.length >= maxColors
 
     return (
       <div className={classes.root}>
@@ -294,10 +300,19 @@ class CreatePalette extends Component {
             <>
               <Typography variant='h4'>Design Your Palette</Typography>
               <PickerActions>
-                <Button variant='contained' color='secondary'>
+                <Button
+                  onClick={this.clearColors}
+                  variant='contained'
+                  color='secondary'
+                >
                   Clear Palette
                 </Button>
-                <Button variant='contained' color='primary'>
+                <Button
+                  onClick={this.addRandomColor}
+                  variant='contained'
+                  color='primary'
+                  disabled={paletteFull}
+                >
                   Random Color
                 </Button>
               </PickerActions>
@@ -325,9 +340,12 @@ class CreatePalette extends Component {
                   variant='contained'
                   color='primary'
                   type='submit'
-                  style={{ backgroundColor: currentColor }}
+                  style={{
+                    backgroundColor: paletteFull ? 'grey' : currentColor
+                  }}
+                  disabled={paletteFull}
                 >
-                  Add Color
+                  {paletteFull ? 'Palette Full' : 'Add Color'}
                 </Button>
               </ValidatorForm>
             </>
