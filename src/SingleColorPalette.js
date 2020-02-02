@@ -23,12 +23,16 @@ const ColorBoxContainer = styled.div`
   z-index: 1;
 `
 
+const StyledColorBox = styled(ColorBox)`
+  height: 50%;
+`
+
 const BackBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
   width: 20%;
-  height: 25%;
+  height: 50%;
   background-color: black;
   color: white;
   cursor: pointer;
@@ -77,7 +81,7 @@ class SingleColorPalette extends Component {
         <ColorBoxContainer>
           {shades.map(color => {
             return (
-              <ColorBox
+              <StyledColorBox
                 key={color.name}
                 colorName={color.name}
                 color={color[format]}

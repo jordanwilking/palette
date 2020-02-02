@@ -148,7 +148,7 @@ class ColorBox extends Component {
 
     return (
       <CopyToClipboard text={color} onCopy={this.changeCopyState}>
-        <Box color={color}>
+        <Box color={color} className={this.props.className}>
           <CopyOverlay className={this.getCopyClasses()} color={color} />
           <CopyMessage className={this.getCopyClasses()}>
             <CopiedText>Copied!</CopiedText>

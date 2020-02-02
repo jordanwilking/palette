@@ -65,10 +65,6 @@ class PaletteHeader extends Component {
   }
 
   handleSnackbarClose(event, reason) {
-    if (reason === 'clickaway') {
-      return
-    }
-
     this.setState({ snackbarOpen: false })
   }
 
@@ -84,7 +80,7 @@ class PaletteHeader extends Component {
           </Link>
         </Logo>
         <HeaderTools>
-          {/* TODO: div is here to keep the justify-content working */}
+          {/* Div is here to keep the justify-content working */}
           {showSlider ? (
             <ShadeLevel>
               <Typography style={{ width: '7rem', minWidth: '5rem' }}>
