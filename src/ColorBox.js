@@ -70,8 +70,6 @@ const ColorText = styled.p`
   font-size: 2rem;
   font-weight: 100;
   text-transform: none;
-  color: ${props =>
-    props.isLightColor ? 'black' : 'rgba(255, 255, 255, 0.2)'};
 `
 
 const BoxContent = styled.div`
@@ -79,7 +77,6 @@ const BoxContent = styled.div`
   left: 0;
   bottom: 0;
   padding: 10px;
-  color: ${props => (props.isDarkColor ? 'white' : 'black')};
   letter-spacing: 1px;
   font-size: 12px;
 `
@@ -98,7 +95,6 @@ const CopyButton = styled.button`
   background: rgba(255, 255, 255, 0.3);
   font-size: 1rem;
   line-height: 30px;
-  color: ${props => (props.isLightColor ? 'black' : 'white')};
   border: none;
   opacity: 0;
   cursor: pointer;
@@ -115,7 +111,6 @@ const MoreButton = styled.div`
   right: 0;
   bottom: 0;
   border: none;
-  color: ${props => (props.isLightColor ? 'black' : 'white')};
   width: 60px;
   height: 30px;
   text-align: center;
@@ -147,8 +142,6 @@ class ColorBox extends Component {
 
   render() {
     const { color, colorName, paletteId, id, showMore } = this.props
-    const isDarkColor = chroma(color).luminance() <= 0.085
-    const isLightColor = chroma(color).luminance() > 0.7
 
     return (
       <CopyToClipboard text={color} onCopy={this.changeCopyState}>
@@ -156,13 +149,13 @@ class ColorBox extends Component {
           <CopyOverlay className={this.getCopyClasses()} color={color} />
           <CopyMessage className={this.getCopyClasses()}>
             <CopiedText>Copied!</CopiedText>
-            <ColorText isLightColor={isLightColor}>{color}</ColorText>
+            <ColorText className='isDark'>{color}</ColorText>
           </CopyMessage>
-          <BoxContent isDarkColor={isDarkColor}>{colorName}</BoxContent>
-          <CopyButton isLightColor={isLightColor}>Copy</CopyButton>
+          <BoxContent className='isDark'>{colorName}</BoxContent>
+          <CopyButton className='isDark'>Copy</CopyButton>
           {showMore && (
             <Link to={`/palette/${paletteId}/${id}`} onClick={this.onClickMore}>
-              <MoreButton isLightColor={isLightColor}>More</MoreButton>
+              <MoreButton className='isDark'>More</MoreButton>
             </Link>
           )}
         </Box>

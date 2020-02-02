@@ -47,10 +47,6 @@ class App extends Component {
         />
         <Redirect from='/' to='/' />
       </Switch>
-
-      // <div style={{ overflow: 'hidden' }}>
-      //   <Palette palette={generatePalette(seedColors[2])} />
-      // </div>
     )
   }
 }
