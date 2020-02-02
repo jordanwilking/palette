@@ -48,7 +48,14 @@ const PalettesContainer = styled.div`
 class PaletteList extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      palettes: [...this.props.palettes]
+    }
     this.goToPalette = this.goToPalette.bind(this)
+  }
+
+  addPalette(newPallete) {
+    this.setState({ palettes: [...this.state.palettes, newPallete] })
   }
 
   goToPalette(id) {
@@ -56,7 +63,7 @@ class PaletteList extends Component {
   }
 
   render() {
-    const { palettes } = this.props
+    const { palettes } = this.state
 
     return (
       <Page>

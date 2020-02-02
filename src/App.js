@@ -8,21 +8,42 @@ import SingleColorPalette from './SingleColorPalette'
 import CreatePalette from './CreatePalette'
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      palettes: [...seedColors]
+    }
+    this.addPalette = this.addPalette.bind(this)
+  }
+
   findPalette(id) {
-    return seedColors.find(palette => palette.id === id)
+    return this.state.palettes.find(palette => palette.id === id)
+  }
+
+  addPalette(newPallete) {
+    console.log(newPallete)
+    this.setState({ palettes: [...this.state.palettes, newPallete] })
   }
 
   render() {
+    const { palettes } = this.state
+
     return (
       <Switch>
         <Route
           exact
           path='/'
           render={routeProps => (
-            <PaletteList palettes={seedColors} {...routeProps} />
+            <PaletteList palettes={palettes} {...routeProps} />
           )}
         />
-        <Route exact path='/palette/new' render={() => <CreatePalette />} />
+        <Route
+          exact
+          path='/palette/new'
+          render={routeProps => (
+            <CreatePalette savePalette={this.addPalette} {...routeProps} />
+          )}
+        />
         <Route
           exact
           path='/palette/:id'

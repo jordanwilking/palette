@@ -17,6 +17,7 @@ const PalettePreview = styled.div`
   margin: 0.5rem;
   height: 70%;
   border-radius: 5px;
+  background-color: #dae1e4;
   overflow: hidden;
 `
 

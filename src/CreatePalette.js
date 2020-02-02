@@ -12,7 +12,6 @@ import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button, Typography } from '@material-ui/core'
 import { ChromePicker } from 'react-color'
-import seedColors from './seedColors'
 import DraggableColorBox from './DraggableColorBox'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 
@@ -144,6 +143,8 @@ class CreatePalette extends Component {
     }
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this)
     this.handleDrawerClose = this.handleDrawerClose.bind(this)
+    this.handleGoBack = this.handleGoBack.bind(this)
+    this.savePalette = this.savePalette.bind(this)
     this.updateCurrentColor = this.updateCurrentColor.bind(this)
     this.addNewColor = this.addNewColor.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -166,6 +167,21 @@ class CreatePalette extends Component {
 
   handleDrawerClose() {
     this.setState({ open: false })
+  }
+
+  handleGoBack() {
+    this.props.history.goBack()
+  }
+
+  savePalette() {
+    let newName = 'New Test Palette'
+    const newPalette = {
+      paletteName: newName,
+      id: newName.toLowerCase().replace('/ /g', '-'),
+      colors: this.state.colors
+    }
+    this.props.savePalette(newPalette)
+    this.props.history.push('/')
   }
 
   updateCurrentColor(newColor) {
@@ -193,6 +209,7 @@ class CreatePalette extends Component {
         <CssBaseline />
         <AppBar
           position='fixed'
+          color='default'
           className={clsx(classes.appBar, {
             [classes.appBarShift]: open
           })}
@@ -210,13 +227,18 @@ class CreatePalette extends Component {
               </HeaderLeft>
               <HeaderActionsSection>
                 <Button
+                  onClick={this.handleGoBack}
                   style={{ marginRight: '1rem' }}
                   color='secondary'
                   variant='contained'
                 >
                   Go Back
                 </Button>
-                <Button color='primary' variant='contained'>
+                <Button
+                  onClick={this.savePalette}
+                  color='primary'
+                  variant='contained'
+                >
                   Save Palette
                 </Button>
               </HeaderActionsSection>
