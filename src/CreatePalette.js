@@ -15,6 +15,8 @@ import { ChromePicker } from 'react-color'
 import DraggableColorBox from './DraggableColorBox'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import seedColors from './seedColors'
+import DraggableColorList from './DraggableColorList'
+import { SortableContainer, SortableList, arrayMove } from 'react-sortable-hoc'
 
 const CreatePaletteContainer = styled.div`
   display: flex;
@@ -47,13 +49,6 @@ const HeaderActionsSection = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 30%;
-`
-
-const ColorBoxes = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  align-content: flex-start;
-  height: 100%;
 `
 
 const PalettePickerContainer = styled.div`
@@ -149,6 +144,7 @@ class CreatePalette extends Component {
     this.addNewColor = this.addNewColor.bind(this)
     this.removeColor = this.removeColor.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.onSortEnd = this.onSortEnd.bind(this)
   }
 
   componentDidMount() {
@@ -216,6 +212,12 @@ class CreatePalette extends Component {
     this.setState({ [e.target.name]: e.target.value })
   }
 
+  onSortEnd({ oldIndex, newIndex }) {
+    this.setState(({ colors }) => ({
+      colors: arrayMove(colors, oldIndex, newIndex)
+    }))
+  }
+
   render() {
     const { classes } = this.props
     const {
@@ -256,7 +258,7 @@ class CreatePalette extends Component {
                 >
                   Go Back
                 </Button>
-                {/* <ValidatorForm onSubmit={this.savePalette}>
+                <ValidatorForm onSubmit={this.savePalette}>
                   <TextValidator
                     name='newPaletteName'
                     onChange={this.handleChange}
@@ -268,7 +270,7 @@ class CreatePalette extends Component {
                   <Button type='submit' color='primary' variant='contained'>
                     Save Palette
                   </Button>
-                </ValidatorForm> */}
+                </ValidatorForm>
               </HeaderActionsSection>
             </CreateHeader>
           </Toolbar>
@@ -337,16 +339,12 @@ class CreatePalette extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <ColorBoxes>
-            {colors.map(color => (
-              <DraggableColorBox
-                key={color.name}
-                color={color.color}
-                name={color.name}
-                onDelete={this.removeColor}
-              />
-            ))}
-          </ColorBoxes>
+          <DraggableColorList
+            colors={this.state.colors}
+            onDelete={this.removeColor}
+            axis='xy'
+            onSortEnd={this.onSortEnd}
+          />
         </main>
       </div>
     )
