@@ -12,6 +12,11 @@ const Box = styled.div`
   background-color: ${props => props.color};
   cursor: pointer;
   text-transform: uppercase;
+
+  .isDark {
+    color: ${props =>
+      chroma(props.color).luminance() <= 0.08 ? 'white' : 'black'};
+  }
 `
 
 const CopyOverlay = styled.div`

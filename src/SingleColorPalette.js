@@ -102,7 +102,7 @@ class SingleColorPalette extends Component {
             )
           })}
           <BackBox onClick={this.handleBackButtonClick}>
-            <BackBoxText className='isDark'>Go Back</BackBoxText>
+            <BackBoxText>Go Back</BackBoxText>
           </BackBox>
         </ColorBoxContainer>
         <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
