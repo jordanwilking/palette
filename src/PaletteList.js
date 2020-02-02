@@ -45,6 +45,7 @@ const PalettesContainer = styled.div`
   width: 100%;
 `
 
+// TODO: can't do justify-content flex-start and space-between at the same time
 class PaletteList extends Component {
   constructor(props) {
     super(props)
