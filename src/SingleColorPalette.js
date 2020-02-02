@@ -39,6 +39,17 @@ const BackBox = styled.div`
   text-transform: uppercase;
 `
 
+const BackBoxText = styled.div`
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.5rem;
+  opacity: 0;
+
+  ${BackBox}:hover & {
+    opacity: 1;
+    transition: 0.5s;
+  }
+`
+
 class SingleColorPalette extends Component {
   constructor(props) {
     super(props)
@@ -88,7 +99,9 @@ class SingleColorPalette extends Component {
               />
             )
           })}
-          <BackBox onClick={this.handleBackButtonClick}>Go Back</BackBox>
+          <BackBox onClick={this.handleBackButtonClick}>
+            <BackBoxText>Go Back</BackBoxText>
+          </BackBox>
         </ColorBoxContainer>
         <PaletteFooter name={palette.paletteName} emoji={palette.emoji} />
       </PaletteContainer>
