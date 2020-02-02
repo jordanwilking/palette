@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
+import chroma from 'chroma-js'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Link } from 'react-router-dom'
 
@@ -69,7 +70,8 @@ const ColorText = styled.p`
   font-size: 2rem;
   font-weight: 100;
   text-transform: none;
-  color: rgba(255, 255, 255, 0.2);
+  color: ${props =>
+    props.isLightColor ? 'black' : 'rgba(255, 255, 255, 0.2)'};
 `
 
 const BoxContent = styled.div`
@@ -77,7 +79,7 @@ const BoxContent = styled.div`
   left: 0;
   bottom: 0;
   padding: 10px;
-  color: black;
+  color: ${props => (props.isDarkColor ? 'white' : 'black')};
   letter-spacing: 1px;
   font-size: 12px;
 `
@@ -96,7 +98,7 @@ const CopyButton = styled.button`
   background: rgba(255, 255, 255, 0.3);
   font-size: 1rem;
   line-height: 30px;
-  color: white;
+  color: ${props => (props.isLightColor ? 'black' : 'white')};
   border: none;
   opacity: 0;
   cursor: pointer;
@@ -113,7 +115,7 @@ const MoreButton = styled.div`
   right: 0;
   bottom: 0;
   border: none;
-  color: white;
+  color: ${props => (props.isLightColor ? 'black' : 'white')};
   width: 60px;
   height: 30px;
   text-align: center;
@@ -145,6 +147,8 @@ class ColorBox extends Component {
 
   render() {
     const { color, colorName, paletteId, id, showMore } = this.props
+    const isDarkColor = chroma(color).luminance() <= 0.085
+    const isLightColor = chroma(color).luminance() > 0.7
 
     return (
       <CopyToClipboard text={color} onCopy={this.changeCopyState}>
@@ -152,13 +156,13 @@ class ColorBox extends Component {
           <CopyOverlay className={this.getCopyClasses()} color={color} />
           <CopyMessage className={this.getCopyClasses()}>
             <CopiedText>Copied!</CopiedText>
-            <ColorText>{color}</ColorText>
+            <ColorText isLightColor={isLightColor}>{color}</ColorText>
           </CopyMessage>
-          <BoxContent>{colorName}</BoxContent>
-          <CopyButton>Copy</CopyButton>
+          <BoxContent isDarkColor={isDarkColor}>{colorName}</BoxContent>
+          <CopyButton isLightColor={isLightColor}>Copy</CopyButton>
           {showMore && (
             <Link to={`/palette/${paletteId}/${id}`} onClick={this.onClickMore}>
-              <MoreButton>More</MoreButton>
+              <MoreButton isLightColor={isLightColor}>More</MoreButton>
             </Link>
           )}
         </Box>

@@ -36,12 +36,14 @@ const BackBox = styled.div`
   background-color: black;
   color: white;
   cursor: pointer;
-  text-transform: uppercase;
 `
 
 const BackBoxText = styled.div`
   background-color: rgba(255, 255, 255, 0.2);
-  padding: 0.5rem;
+  text-align: center;
+  width: 100px;
+  height: 30px;
+  line-height: 30px;
   opacity: 0;
 
   ${BackBox}:hover & {
