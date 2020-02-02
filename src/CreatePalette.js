@@ -2,13 +2,9 @@ import React, { Component } from 'react'
 import clsx from 'clsx'
 import { withStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Divider from '@material-ui/core/Divider'
 import IconButton from '@material-ui/core/IconButton'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button, Typography } from '@material-ui/core'
 import { ChromePicker } from 'react-color'
@@ -16,31 +12,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import seedColors from './seedColors'
 import DraggableColorList from './DraggableColorList'
 import { arrayMove } from 'react-sortable-hoc'
-
-const CreateHeader = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-`
-
-const CreateText = styled.div`
-  font-weight: 600;
-  margin-left: 1rem;
-`
-
-const HeaderLeft = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`
-
-const HeaderActionsSection = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 30%;
-`
+import CreatePaletteNav from './CreatePaletteNav'
 
 const PalettePickerContainer = styled.div`
   display: flex;
@@ -150,11 +122,6 @@ class CreatePalette extends Component {
     ValidatorForm.addValidationRule('isColorUnique', value =>
       this.state.colors.every(({ color }) => color !== this.state.currentColor)
     )
-    ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-      this.props.palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
-    )
   }
 
   handleDrawerOpen() {
@@ -169,11 +136,10 @@ class CreatePalette extends Component {
     this.props.history.goBack()
   }
 
-  savePalette() {
-    let newName = this.state.newPaletteName
+  savePalette(newPaletteName) {
     const newPalette = {
-      paletteName: newName,
-      id: newName.toLowerCase().replace(/ /g, '-'),
+      paletteName: newPaletteName,
+      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
       colors: this.state.colors
     }
     this.props.savePalette(newPalette)
@@ -224,7 +190,7 @@ class CreatePalette extends Component {
   }
 
   render() {
-    const { classes, maxColors } = this.props
+    const { classes, maxColors, palettes } = this.props
     const {
       open,
       currentColor,
@@ -236,51 +202,15 @@ class CreatePalette extends Component {
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-        <AppBar
-          position='fixed'
-          color='default'
-          className={clsx(classes.appBar, {
-            [classes.appBarShift]: open
-          })}
-        >
-          <Toolbar>
-            <CreateHeader>
-              <HeaderLeft>
-                <IconButton
-                  onClick={this.handleDrawerOpen}
-                  className={clsx(classes.menuButton, open && classes.hide)}
-                >
-                  <QueueIcon />
-                </IconButton>
-                <CreateText>Create A Palette</CreateText>
-              </HeaderLeft>
-              <HeaderActionsSection>
-                <Button
-                  onClick={this.handleGoBack}
-                  style={{ marginRight: '1rem' }}
-                  color='secondary'
-                  variant='contained'
-                >
-                  Go Back
-                </Button>
-                <ValidatorForm onSubmit={this.savePalette}>
-                  <TextValidator
-                    name='newPaletteName'
-                    onChange={this.handleChange}
-                    label='Palette Name'
-                    value={newPaletteName}
-                    validators={['required', 'isPaletteNameUnique']}
-                    errorMessages={['Enter palette name', 'Name already taken']}
-                  />
-                  <Button type='submit' color='primary' variant='contained'>
-                    Save Palette
-                  </Button>
-                </ValidatorForm>
-              </HeaderActionsSection>
-            </CreateHeader>
-          </Toolbar>
-        </AppBar>
+        <CreatePaletteNav
+          open={open}
+          classes={classes}
+          newPaletteName={newPaletteName}
+          palettes={palettes}
+          savePalette={this.savePalette}
+          openDrawer={this.handleDrawerOpen}
+          goBack={this.handleGoBack}
+        />
         <Drawer
           className={classes.drawer}
           variant='persistent'
