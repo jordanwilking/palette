@@ -9,6 +9,7 @@ import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
+import SavePaletteDialog from './SavePaletteDialog'
 
 const drawerWidth = 400
 
@@ -65,19 +66,6 @@ class CreatePaletteNav extends Component {
       newPaletteName: ''
     }
     this.handleChange = this.handleChange.bind(this)
-    this.savePalette = this.savePalette.bind(this)
-  }
-
-  componentDidMount() {
-    ValidatorForm.addValidationRule('isPaletteNameUnique', value =>
-      this.props.palettes.every(
-        ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
-      )
-    )
-  }
-
-  savePalette() {
-    this.props.savePalette(this.state.newPaletteName)
   }
 
   handleChange(e) {
@@ -85,8 +73,14 @@ class CreatePaletteNav extends Component {
   }
 
   render() {
-    const { open, openDrawer, goBack, classes } = this.props
-    const { newPaletteName } = this.state
+    const {
+      open,
+      openDrawer,
+      goBack,
+      classes,
+      palettes,
+      savePalette
+    } = this.props
 
     return (
       <div>
@@ -118,19 +112,10 @@ class CreatePaletteNav extends Component {
                 >
                   Go Back
                 </Button>
-                <ValidatorForm onSubmit={this.savePalette}>
-                  <TextValidator
-                    name='newPaletteName'
-                    onChange={this.handleChange}
-                    label='Palette Name'
-                    value={newPaletteName}
-                    validators={['required', 'isPaletteNameUnique']}
-                    errorMessages={['Enter palette name', 'Name already taken']}
-                  />
-                  <Button type='submit' color='primary' variant='contained'>
-                    Save Palette
-                  </Button>
-                </ValidatorForm>
+                <SavePaletteDialog
+                  palettes={palettes}
+                  savePalette={savePalette}
+                />
               </HeaderActionsSection>
             </CreateHeader>
           </Toolbar>
