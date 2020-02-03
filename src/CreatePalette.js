@@ -103,10 +103,11 @@ class CreatePalette extends Component {
     this.props.history.goBack()
   }
 
-  savePalette(newPaletteName) {
+  savePalette({ paletteName, emoji }) {
     const newPalette = {
-      paletteName: newPaletteName,
-      id: newPaletteName.toLowerCase().replace(/ /g, '-'),
+      paletteName,
+      id: paletteName.toLowerCase().replace(/ /g, '-'),
+      emoji,
       colors: this.state.colors
     }
     this.props.savePalette(newPalette)
@@ -178,7 +179,9 @@ class CreatePalette extends Component {
           </div>
           <Divider />
           <PalettePickerContainer>
-            <Typography variant='h4' gutterBottom>Design Your Palette</Typography>
+            <Typography variant='h4' gutterBottom>
+              Design Your Palette
+            </Typography>
             <PickerActions>
               <Button
                 onClick={this.clearColors}
