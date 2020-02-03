@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import DeleteIcon from '@material-ui/icons/Delete'
+import mediaSizes from './mediaSizes'
 
 const Box = styled.div`
   position: relative;
@@ -10,6 +11,14 @@ const Box = styled.div`
   margin-bottom: 2rem;
   border-radius: 5px;
   cursor: pointer;
+
+  @media (max-width: ${mediaSizes.md}) {
+    width: 45%;
+  }
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 100%;
+  }
 `
 
 const DeleteContainer = styled.div`

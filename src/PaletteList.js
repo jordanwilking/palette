@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import MiniPalette from './MiniPalette'
+import mediaSizes from './mediaSizes'
 
 const Page = styled.div`
   display: flex;
@@ -16,6 +17,14 @@ const PalettesPageContainer = styled.div`
   justify-content: center;
   height: 100%;
   width: 66%;
+
+  @media (max-width: ${mediaSizes.xl}) {
+    width: 80%;
+  }
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 70%;
+  }
 `
 
 const PalettesHeader = styled.div`
