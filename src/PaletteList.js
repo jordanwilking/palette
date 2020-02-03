@@ -49,14 +49,7 @@ const PalettesContainer = styled.div`
 class PaletteList extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      palettes: [...this.props.palettes]
-    }
     this.goToPalette = this.goToPalette.bind(this)
-  }
-
-  addPalette(newPallete) {
-    this.setState({ palettes: [...this.state.palettes, newPallete] })
   }
 
   goToPalette(id) {
@@ -64,7 +57,7 @@ class PaletteList extends Component {
   }
 
   render() {
-    const { palettes } = this.state
+    const { deletePalette, palettes } = this.props
 
     return (
       <Page>
@@ -77,8 +70,10 @@ class PaletteList extends Component {
             {palettes.map(palette => (
               <MiniPalette
                 key={palette.id}
+                id={palette.id}
                 palette={palette}
                 onClick={this.goToPalette}
+                onDelete={deletePalette}
               />
             ))}
           </PalettesContainer>

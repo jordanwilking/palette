@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import PaletteHeader from './PaletteHeader'
 import PaletteFooter from './PaletteFooter'
 import ColorBox from './ColorBox'
+import mediaSizes from './mediaSizes'
 
 const PaletteContainer = styled.div`
   height: 100vh;
@@ -25,6 +26,11 @@ const ColorBoxContainer = styled.div`
 
 const StyledColorBox = styled(ColorBox)`
   height: 50%;
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 100%;
+    height: 10%;
+  }
 `
 
 const BackBox = styled.div`
@@ -36,6 +42,11 @@ const BackBox = styled.div`
   background-color: black;
   color: white;
   cursor: pointer;
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 100%;
+    height: 10%;
+  }
 `
 
 const BackBoxText = styled.div`

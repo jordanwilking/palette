@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import chroma from 'chroma-js'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Link } from 'react-router-dom'
+import mediaSizes from './mediaSizes'
 
 const Box = styled.div`
   display: inline-block;
@@ -16,6 +17,21 @@ const Box = styled.div`
   .isDark {
     color: ${props =>
       chroma(props.color).luminance() <= 0.08 ? 'white' : 'black'};
+  }
+
+  @media (max-width: ${mediaSizes.lg}) {
+    width: 25%;
+    height: 20%;
+  }
+
+  @media (max-width: ${mediaSizes.md}) {
+    width: 50%;
+    height: 10%;
+  }
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 100%;
+    height: 5%;
   }
 `
 
