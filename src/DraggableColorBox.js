@@ -10,6 +10,7 @@ const Box = styled.div`
   width: 20%;
   height: 25%;
   background-color: ${props => props.color};
+  cursor: pointer;
 `
 
 const Bottom = styled.div`

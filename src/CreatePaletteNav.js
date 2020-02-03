@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton'
 import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
-import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
 import SavePaletteDialog from './SavePaletteDialog'
 
 const drawerWidth = 400
@@ -30,6 +29,9 @@ const styles = theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2)
+  },
+  hide: {
+    display: 'none'
   }
 })
 
@@ -43,7 +45,6 @@ const CreateHeader = styled.div`
 
 const CreateText = styled.div`
   font-weight: 600;
-  margin-left: 1rem;
   font-size: 18px;
 `
 

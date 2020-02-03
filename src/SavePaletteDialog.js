@@ -75,7 +75,7 @@ class SavePaletteDialog extends Component {
           variant='contained'
           onClick={this.handleSaveOpen}
         >
-          Save Palette
+          Save
         </Button>
         <Dialog open={openSave} onClose={this.handleSaveClose}>
           <DialogTitle>Choose a Palette Name 🎨</DialogTitle>
