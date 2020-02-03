@@ -17,17 +17,16 @@ const PalettePickerContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  align-content: center;
   justify-content: center;
-  height: 50%;
+  height: 100%;
   width: 90%;
   margin: 1rem;
-  border: 2px solid red;
 `
 
 const PickerActions = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
 `
 
 const drawerWidth = 400
@@ -35,23 +34,6 @@ const drawerWidth = 400
 const styles = theme => ({
   root: {
     display: 'flex'
-  },
-  appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
-  },
-  appBarShift: {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: drawerWidth,
-    transition: theme.transitions.create(['margin', 'width'], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
   },
   hide: {
     display: 'none'
@@ -93,7 +75,7 @@ class CreatePalette extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
+      open: true,
       newPaletteName: '',
       colors: seedColors[0].colors
     }
@@ -174,7 +156,6 @@ class CreatePalette extends Component {
       <div className={classes.root}>
         <CreatePaletteNav
           open={open}
-          classes={classes}
           newPaletteName={newPaletteName}
           palettes={palettes}
           savePalette={this.savePalette}
@@ -197,31 +178,31 @@ class CreatePalette extends Component {
           </div>
           <Divider />
           <PalettePickerContainer>
-            <>
-              <Typography variant='h4'>Design Your Palette</Typography>
-              <PickerActions>
-                <Button
-                  onClick={this.clearColors}
-                  variant='contained'
-                  color='secondary'
-                >
-                  Clear Palette
-                </Button>
-                <Button
-                  onClick={this.addRandomColor}
-                  variant='contained'
-                  color='primary'
-                  disabled={paletteFull}
-                >
-                  Random Color
-                </Button>
-              </PickerActions>
-              <ColorPickerForm
-                paletteFull={paletteFull}
-                addNewColor={this.addNewColor}
-                colors={colors}
-              />
-            </>
+            <Typography variant='h4' gutterBottom>Design Your Palette</Typography>
+            <PickerActions>
+              <Button
+                onClick={this.clearColors}
+                variant='contained'
+                color='secondary'
+                style={{ width: '50%' }}
+              >
+                Clear Palette
+              </Button>
+              <Button
+                onClick={this.addRandomColor}
+                variant='contained'
+                color='primary'
+                style={{ width: '50%' }}
+                disabled={paletteFull}
+              >
+                Random Color
+              </Button>
+            </PickerActions>
+            <ColorPickerForm
+              paletteFull={paletteFull}
+              addNewColor={this.addNewColor}
+              colors={colors}
+            />
           </PalettePickerContainer>
         </Drawer>
         <main

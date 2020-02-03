@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
@@ -8,6 +9,28 @@ import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator'
+
+const drawerWidth = 400
+
+const styles = theme => ({
+  appBar: {
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen
+    })
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginLeft: drawerWidth,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen
+    })
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  }
+})
 
 const CreateHeader = styled.div`
   display: flex;
@@ -20,6 +43,7 @@ const CreateHeader = styled.div`
 const CreateText = styled.div`
   font-weight: 600;
   margin-left: 1rem;
+  font-size: 18px;
 `
 
 const HeaderLeft = styled.div`
@@ -61,7 +85,7 @@ class CreatePaletteNav extends Component {
   }
 
   render() {
-    const { classes, open, openDrawer, goBack } = this.props
+    const { open, openDrawer, goBack, classes } = this.props
     const { newPaletteName } = this.state
 
     return (
@@ -116,4 +140,4 @@ class CreatePaletteNav extends Component {
   }
 }
 
-export default CreatePaletteNav
+export default withStyles(styles, { withTheme: true })(CreatePaletteNav)
