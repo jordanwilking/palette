@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { SortableElement } from 'react-sortable-hoc'
+import mediaSizes from './mediaSizes'
 
 const Box = styled.div`
   display: flex;
@@ -11,6 +12,21 @@ const Box = styled.div`
   height: 25%;
   background-color: ${props => props.color};
   cursor: pointer;
+
+  @media (max-width: ${mediaSizes.lg}) {
+    width: 25%;
+    height: 20%;
+  }
+
+  @media (max-width: ${mediaSizes.md}) {
+    width: 50%;
+    height: 10%;
+  }
+
+  @media (max-width: ${mediaSizes.xs}) {
+    width: 100%;
+    height: 5%;
+  }
 `
 
 const Bottom = styled.div`

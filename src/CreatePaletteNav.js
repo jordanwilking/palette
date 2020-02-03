@@ -9,6 +9,7 @@ import QueueIcon from '@material-ui/icons/Queue'
 import styled from 'styled-components'
 import { Button } from '@material-ui/core'
 import SavePaletteDialog from './SavePaletteDialog'
+import mediaSizes from './mediaSizes'
 
 const drawerWidth = 400
 
@@ -46,6 +47,7 @@ const CreateHeader = styled.div`
 const CreateText = styled.div`
   font-weight: 600;
   font-size: 18px;
+  width: auto;
 `
 
 const HeaderLeft = styled.div`
@@ -57,7 +59,12 @@ const HeaderLeft = styled.div`
 const HeaderActionsSection = styled.div`
   display: flex;
   justify-content: flex-end;
-  width: 30%;
+  width: auto;
+
+  @media (max-width: ${mediaSizes.xs}) {
+    margin: 0 0.2rem;
+    padding: 0.3rem;
+  }
 `
 
 class CreatePaletteNav extends Component {

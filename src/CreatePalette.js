@@ -12,6 +12,8 @@ import DraggableColorList from './DraggableColorList'
 import { arrayMove } from 'react-sortable-hoc'
 import CreatePaletteNav from './CreatePaletteNav'
 import ColorPickerForm from './ColorPickerForm'
+import mediaSizes from './mediaSizes'
+import { NONAME } from 'dns'
 
 const PalettePickerContainer = styled.div`
   display: flex;
@@ -33,19 +35,30 @@ const drawerWidth = 400
 
 const styles = theme => ({
   root: {
-    display: 'flex'
+    display: 'flex',
+
+    [`@media (max-width: ${mediaSizes.xs})`]: {
+      overflow: 'hidden'
+    }
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    display: 'flex',
+    alignItems: 'center',
+
+    [`@media (max-width: ${mediaSizes.xs})`]: {
+      width: '100vw'
+    }
   },
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    padding: theme.spacing(0, 1),
+    width: '100%',
+    padding: '0 8px',
     ...theme.mixins.toolbar,
     justifyContent: 'flex-end'
   },
@@ -174,7 +187,7 @@ class CreatePalette extends Component {
               <ChevronLeftIcon />
             </IconButton>
           </div>
-          <Divider />
+          <Divider width='100%' />
           <PalettePickerContainer>
             <Typography variant='h4' gutterBottom>
               Design Your Palette
