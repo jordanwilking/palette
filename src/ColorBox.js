@@ -85,6 +85,10 @@ const CopiedText = styled.h1`
   text-align: center;
   margin-bottom: 0;
   padding: 1rem;
+
+  @media (max-width: ${mediaSizes.xs}) {
+    font-size: 5.5rem;
+  }
 `
 
 const ColorText = styled.p`

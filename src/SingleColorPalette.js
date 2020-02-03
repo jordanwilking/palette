@@ -27,6 +27,14 @@ const ColorBoxContainer = styled.div`
 const StyledColorBox = styled(ColorBox)`
   height: 50%;
 
+  @media (max-width: ${mediaSizes.lg}) {
+    width: 20%;
+    height: 50%;
+  }
+  @media (max-width: ${mediaSizes.md}) {
+    width: 50%;
+    height: 20%;
+  }
   @media (max-width: ${mediaSizes.xs}) {
     width: 100%;
     height: 10%;
@@ -43,6 +51,10 @@ const BackBox = styled.div`
   color: white;
   cursor: pointer;
 
+  @media (max-width: ${mediaSizes.md}) {
+    width: 50%;
+    height: 20%;
+  }
   @media (max-width: ${mediaSizes.xs}) {
     width: 100%;
     height: 10%;
@@ -55,12 +67,6 @@ const BackBoxText = styled.div`
   width: 100px;
   height: 30px;
   line-height: 30px;
-  opacity: 0;
-
-  ${BackBox}:hover & {
-    opacity: 1;
-    transition: 0.5s;
-  }
 `
 
 class SingleColorPalette extends Component {
