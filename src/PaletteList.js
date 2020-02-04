@@ -5,7 +5,18 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import mediaSizes from './mediaSizes'
 import bg from './bg.svg'
-import { Button } from '@material-ui/core'
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  List,
+  ListItem,
+  ListItemAvatar,
+  Avatar,
+  ListItemText
+} from '@material-ui/core'
+import { Check, Close } from '@material-ui/icons'
+import { blue, red } from '@material-ui/core/colors'
 
 const Page = styled.div`
   display: flex;
@@ -90,7 +101,11 @@ const Reset = styled(Button)`
 class PaletteList extends Component {
   constructor(props) {
     super(props)
+    this.state = { deleteDialogOpen: false, deletingId: '' }
     this.goToPalette = this.goToPalette.bind(this)
+    this.openDialog = this.openDialog.bind(this)
+    this.closeDialog = this.closeDialog.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   goToPalette(id) {
@@ -102,7 +117,21 @@ class PaletteList extends Component {
     window.location.reload()
   }
 
+  openDialog(id) {
+    this.setState({ deleteDialogOpen: true, deletingId: id })
+  }
+
+  closeDialog() {
+    this.setState({ deleteDialogOpen: false, deletingId: '' })
+  }
+
+  handleDelete() {
+    this.props.deletePalette(this.state.deletingId)
+    this.closeDialog()
+  }
+
   render() {
+    const { deleteDialogOpen } = this.state
     const { deletePalette, palettes } = this.props
 
     return (
@@ -121,12 +150,37 @@ class PaletteList extends Component {
                     id={palette.id}
                     palette={palette}
                     onClick={this.goToPalette}
-                    onDelete={deletePalette}
+                    onDelete={this.openDialog}
                   />
                 </CSSTransition>
               ))}
             </PalettesContainer>
           </PalettesPageContainer>
+          <Dialog open={deleteDialogOpen}>
+            <DialogTitle>Delete this palette?</DialogTitle>
+            <List>
+              <ListItem button onClick={this.handleDelete}>
+                <ListItemAvatar>
+                  <Avatar
+                    style={{ backgroundColor: blue[100], color: blue[600] }}
+                  >
+                    <Check />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary='Delete' />
+              </ListItem>
+              <ListItem button onClick={this.closeDialog}>
+                <ListItemAvatar>
+                  <Avatar
+                    style={{ backgroundColor: red[100], color: red[600] }}
+                  >
+                    <Close />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary='Cancel' />
+              </ListItem>
+            </List>
+          </Dialog>
         </Page>
         <Reset onClick={this.handleResetClick} variant='contained'>
           Reset Local Storage
