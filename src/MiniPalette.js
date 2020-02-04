@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 import DeleteIcon from '@material-ui/icons/Delete'
 import mediaSizes from './mediaSizes'
@@ -71,7 +71,7 @@ const PaletteName = styled.div`
   font-weight: 700;
 `
 
-class MiniPalette extends Component {
+class MiniPalette extends PureComponent {
   constructor(props) {
     super(props)
     this.handleClick = this.handleClick.bind(this)
@@ -89,6 +89,7 @@ class MiniPalette extends Component {
 
   render() {
     const { palette } = this.props
+    console.log('RENDER: ' + palette.id)
 
     return (
       <>

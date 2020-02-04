@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import clsx from 'clsx'
-import CssBaseline from '@material-ui/core/CssBaseline'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
@@ -92,7 +91,6 @@ class CreatePaletteNav extends Component {
 
     return (
       <div>
-        <CssBaseline />
         <AppBar
           position='fixed'
           color='default'

@@ -59,6 +59,7 @@ class SavePaletteDialog extends Component {
       paletteName: this.state.newPaletteName,
       emoji: emoji.native
     })
+    this.setState({ openEmoji: false })
   }
 
   handleChange(e) {

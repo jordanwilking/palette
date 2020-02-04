@@ -10,9 +10,14 @@ import CreatePalette from './CreatePalette'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 const Transition = styled(TransitionGroup)`
-  .fade-exit-active {
+  .page-enter {
     opacity: 0;
-    transition: opacity 500ms ease-out;
+  }
+  .page-enter-active {
+    opacity: 1;
+  }
+  .page-exit-active {
+    opacity: 0;
   }
 `
 
@@ -20,6 +25,7 @@ const TransitionPage = styled.div`
   height: 100vh;
   width: 100%;
   position: fixed;
+  transition: opacity 500ms ease-in;
 `
 
 class App extends Component {
@@ -60,7 +66,7 @@ class App extends Component {
       <Route
         render={({ location }) => (
           <Transition>
-            <CSSTransition key={location.key} classNames='fade' timeout={500}>
+            <CSSTransition key={location.key} classNames='page' timeout={500}>
               <Switch location={location}>
                 <Route
                   exact
