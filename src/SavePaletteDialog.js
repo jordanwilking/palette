@@ -78,7 +78,12 @@ class SavePaletteDialog extends Component {
           Save
         </Button>
         <Dialog open={openSave} onClose={this.handleSaveClose}>
-          <DialogTitle>Choose a Palette Name 🎨</DialogTitle>
+          <DialogTitle>
+            Choose a Palette Name{' '}
+            <span role='img' aria-label='palette image'>
+              🎨
+            </span>
+          </DialogTitle>
           <ValidatorForm onSubmit={this.handleNextStage}>
             <DialogContent>
               <DialogContentText>

@@ -13,7 +13,12 @@ const Page = styled.div`
   /* background by SVGBackgrounds.com */
   background-color: #121b63;
   background-image: url(${bg});
-  overflow-y: scroll;
+  background-repeat: repeat;
+  overflow: hidden;
+
+  @media (max-width: ${mediaSizes.xs}) {
+    overflow-y: scroll;
+  }
 `
 
 const PalettesPageContainer = styled.div`

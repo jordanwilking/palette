@@ -13,7 +13,6 @@ import { arrayMove } from 'react-sortable-hoc'
 import CreatePaletteNav from './CreatePaletteNav'
 import ColorPickerForm from './ColorPickerForm'
 import mediaSizes from './mediaSizes'
-import { NONAME } from 'dns'
 
 const PalettePickerContainer = styled.div`
   display: flex;

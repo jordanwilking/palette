@@ -2,6 +2,10 @@
 
 - Created as part of The Modern React Bootcamp Udemy course by Colt Steel: https://www.udemy.com/course/modern-react-bootcamp/
 
+- TODO:
+  - convert the flexbox on the front page to a grid system
+  - scrollbar always shows on front page: temp solution using media query
+
 ## Available Scripts
 
 In the project directory, you can run:
