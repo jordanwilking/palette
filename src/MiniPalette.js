@@ -61,6 +61,8 @@ const MiniPaletteFooter = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  height: 20%;
   margin: 0.5rem;
 `
 
