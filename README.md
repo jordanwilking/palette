@@ -7,6 +7,8 @@
   - scrollbar always shows on front page: temp solution using media query
   - sometimes deleting too quickly in draggable list will cause weird bugs (empty spaces)
   - Add page slide transition directions
+  - Random color doesn't work if there are no palettes
+  - Create a palette dark colors do not work
 
 ## Available Scripts
 

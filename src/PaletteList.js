@@ -132,7 +132,7 @@ class PaletteList extends Component {
 
   render() {
     const { deleteDialogOpen } = this.state
-    const { deletePalette, palettes } = this.props
+    const { palettes } = this.props
 
     return (
       <>

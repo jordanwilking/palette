@@ -89,7 +89,6 @@ class MiniPalette extends PureComponent {
 
   render() {
     const { palette } = this.props
-    console.log('RENDER: ' + palette.id)
 
     return (
       <>

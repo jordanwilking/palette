@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import chroma from 'chroma-js'
 import { withRouter } from 'react-router-dom'
 import styled from 'styled-components'
 import PaletteHeader from './PaletteHeader'
@@ -12,6 +13,11 @@ const PaletteContainer = styled.div`
   flex-direction: column;
   background-color: white;
   overflow: hidden;
+
+  .isDark {
+    color: ${props =>
+      chroma(props.color).luminance() <= 0.08 ? 'white' : 'black'} !important;
+  }
 `
 
 const ColorBoxContainer = styled.div`
@@ -106,13 +112,14 @@ class SingleColorPalette extends Component {
     const shades = this.gatherShades()
 
     return (
-      <PaletteContainer>
+      <PaletteContainer className='isDark'>
         <PaletteHeader changeFormat={this.changeFormat} />
         <ColorBoxContainer>
           {shades.map(color => {
             return (
               <StyledColorBox
                 key={color.name}
+                className='isDark'
                 colorName={color.name}
                 color={color[format]}
               />
