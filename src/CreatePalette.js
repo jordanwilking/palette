@@ -228,6 +228,7 @@ class CreatePalette extends Component {
             onDelete={this.removeColor}
             axis='xy'
             onSortEnd={this.onSortEnd}
+            draggable={20}
           />
         </main>
       </div>

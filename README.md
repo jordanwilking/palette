@@ -5,6 +5,7 @@
 - TODO:
   - convert the flexbox on the front page to a grid system
   - scrollbar always shows on front page: temp solution using media query
+  - sometimes deleting too quickly in draggable list will cause weird bugs (empty spaces)
 
 ## Available Scripts
 
