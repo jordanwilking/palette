@@ -3,12 +3,17 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import MiniPalette from './MiniPalette'
 import mediaSizes from './mediaSizes'
+import bg from './bg.svg'
 
 const Page = styled.div`
   display: flex;
   justify-content: center;
   height: 100vh;
   z-index: 1;
+  /* background by SVGBackgrounds.com */
+  background-color: #121b63;
+  background-image: url(${bg});
+  overflow-y: scroll;
 `
 
 const PalettesPageContainer = styled.div`
@@ -37,7 +42,7 @@ const PalettesHeader = styled.div`
 
 const AppName = styled.div`
   color: white;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 500;
 `
 

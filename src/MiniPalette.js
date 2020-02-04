@@ -17,6 +17,7 @@ const Box = styled.div`
   }
 
   @media (max-width: ${mediaSizes.xs}) {
+    height: 25%;
     width: 100%;
   }
 `
