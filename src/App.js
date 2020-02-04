@@ -122,7 +122,17 @@ class App extends Component {
                     </TransitionPage>
                   )}
                 />
-                <Redirect from='/' to='/' />
+                <Route
+                  render={routeProps => (
+                    <TransitionPage>
+                      <PaletteList
+                        palettes={palettes}
+                        deletePalette={this.deletePalette}
+                        {...routeProps}
+                      />
+                    </TransitionPage>
+                  )}
+                />
               </Switch>
             </CSSTransition>
           </Transition>

@@ -5,10 +5,11 @@
 - TODO:
   - convert the flexbox on the front page to a grid system
   - scrollbar always shows on front page: temp solution using media query
-  - sometimes deleting too quickly in draggable list will cause weird bugs (empty spaces)
+  - sometimes deleting too quickly in draggable list will cause weird bugs (empty spaces) [This might be due to the duplicate colors - may be resolved]
   - Add page slide transition directions
   - Random color doesn't work if there are no palettes
   - Create a palette dark colors do not work
+  - Nonexistant "/palette/notapalette" routes still match
 
 ## Available Scripts
 
