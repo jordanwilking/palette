@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import styled from 'styled-components'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Palette from './Palette'
 import PaletteList from './PaletteList'
@@ -6,6 +7,20 @@ import seedColors from './seedColors'
 import { generatePalette } from './colorHelpers'
 import SingleColorPalette from './SingleColorPalette'
 import CreatePalette from './CreatePalette'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
+
+const Transition = styled(TransitionGroup)`
+  .fade-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-out;
+  }
+`
+
+const TransitionPage = styled.div`
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+`
 
 class App extends Component {
   constructor(props) {
@@ -42,55 +57,71 @@ class App extends Component {
     const { palettes } = this.state
 
     return (
-      <Switch>
-        <Route
-          exact
-          path='/'
-          render={routeProps => (
-            <PaletteList
-              palettes={palettes}
-              deletePalette={this.deletePalette}
-              {...routeProps}
-            />
-          )}
-        />
-        <Route
-          exact
-          path='/palette/new'
-          render={routeProps => (
-            <CreatePalette
-              savePalette={this.addPalette}
-              palettes={palettes}
-              {...routeProps}
-            />
-          )}
-        />
-        <Route
-          exact
-          path='/palette/:id'
-          render={routeProps => (
-            <Palette
-              palette={generatePalette(
-                this.findPalette(routeProps.match.params.id)
-              )}
-            />
-          )}
-        />
-        <Route
-          exact
-          path='/palette/:paletteId/:colorId'
-          render={routeProps => (
-            <SingleColorPalette
-              colorId={routeProps.match.params.colorId}
-              palette={generatePalette(
-                this.findPalette(routeProps.match.params.paletteId)
-              )}
-              {...routeProps}
-            />
-          )}
-        />
-        <Redirect from='/' to='/' />
-      </Switch>
+      <Route
+        render={({ location }) => (
+          <Transition>
+            <CSSTransition key={location.key} classNames='fade' timeout={500}>
+              <Switch location={location}>
+                <Route
+                  exact
+                  path='/'
+                  render={routeProps => (
+                    <TransitionPage>
+                      <PaletteList
+                        palettes={palettes}
+                        deletePalette={this.deletePalette}
+                        {...routeProps}
+                      />
+                    </TransitionPage>
+                  )}
+                />
+                <Route
+                  exact
+                  path='/palette/new'
+                  render={routeProps => (
+                    <TransitionPage>
+                      <CreatePalette
+                        savePalette={this.addPalette}
+                        palettes={palettes}
+                        {...routeProps}
+                      />
+                    </TransitionPage>
+                  )}
+                />
+                <Route
+                  exact
+                  path='/palette/:id'
+                  render={routeProps => (
+                    <TransitionPage>
+                      <Palette
+                        palette={generatePalette(
+                          this.findPalette(routeProps.match.params.id)
+                        )}
+                      />
+                    </TransitionPage>
+                  )}
+                />
+                <Route
+                  exact
+                  path='/palette/:paletteId/:colorId'
+                  render={routeProps => (
+                    <TransitionPage>
+                      <SingleColorPalette
+                        colorId={routeProps.match.params.colorId}
+                        palette={generatePalette(
+                          this.findPalette(routeProps.match.params.paletteId)
+                        )}
+                        {...routeProps}
+                      />
+                    </TransitionPage>
+                  )}
+                />
+                <Redirect from='/' to='/' />
+              </Switch>
+            </CSSTransition>
+          </Transition>
+        )}
+      />
     )
   }
 }
